@@ -6,6 +6,8 @@ import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, useColorScheme, View } from "react-native";
+import TabMenu from "@/components/TabMenu";
+import { menu } from "@/constants/menu";
 
 export default function HomeScreen() {
   const theme = useColorScheme();
@@ -31,6 +33,9 @@ export default function HomeScreen() {
       ]}
     >
       <PortofolioCard percentageUp={2.5} value={34010} label="My Portofolio" />
+      <View style={styles.tabMenuContainer}>
+        <TabMenu menu={menu} />
+      </View>
       <ThemedText type="subtitle" style={styles.subtitleText}>
         Portofolio
       </ThemedText>
@@ -80,6 +85,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
     fontWeight: "500",
+  },
+  tabMenuContainer: {
+    marginVertical: 5,
   },
   chartContainer: {
     marginTop: 15,
