@@ -1,14 +1,26 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, useColorScheme, View } from "react-native";
 import React from "react";
 import { TNotification } from "@/schema/coin";
+import { Colors } from "@/constants/Colors";
+import { ThemedText } from "./ThemedText";
 
 type TNotificationListProps = {
   item: TNotification;
 };
 
 const NotificationList: React.FC<TNotificationListProps> = ({ item }) => {
+  const theme = useColorScheme();
   return (
-    <View style={styles.notificationContainer} key={item.id}>
+    <View
+      style={[
+        styles.notificationContainer,
+        {
+          backgroundColor:
+            theme === "dark" ? Colors.dark.background : Colors.light.background,
+        },
+      ]}
+      key={item.id}
+    >
       <View style={styles.notificationCard}>
         <View style={styles.notificationHeader}>
           <View style={styles.iconWrapper}>
@@ -18,14 +30,16 @@ const NotificationList: React.FC<TNotificationListProps> = ({ item }) => {
             />
           </View>
           <View style={styles.headerTextWrapper}>
-            <Text style={styles.headerText}>{item.headerText}</Text>
+            <ThemedText style={styles.headerText}>{item.headerText}</ThemedText>
           </View>
         </View>
         <View style={styles.notificationBody}>
-          <Text style={styles.notificationText}>{item.bodyText}</Text>
+          <ThemedText style={styles.notificationText}>
+            {item.bodyText}
+          </ThemedText>
         </View>
         <View style={styles.notificationFooter}>
-          <Text style={styles.footerText}>{item.date}</Text>
+          <ThemedText style={styles.footerText}>{item.date}</ThemedText>
         </View>
       </View>
     </View>
@@ -47,8 +61,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
     width: "100%",
-    marginTop: 2,
-    marginBottom: 2,
+    marginTop: 3,
+    marginBottom: 3,
   },
   notificationCard: {
     flexDirection: "column",
@@ -62,11 +76,13 @@ const styles = StyleSheet.create({
   iconWrapper: {
     width: 30,
     height: 30,
+    marginRight: 5,
   },
   iconImage: {
     width: "100%",
     height: "100%",
     resizeMode: "cover",
+    borderRadius: 50,
   },
   headerTextWrapper: {
     alignItems: "center",
